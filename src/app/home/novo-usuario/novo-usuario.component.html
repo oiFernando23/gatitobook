@@ -1,0 +1,76 @@
+<h4 class="text-center">Registre-se e mostre seu pet!</h4>
+
+<form class="form mt-4" [formGroup]="novoUsuarioForm" (submit)="cadastrar()">
+  <div class="form-group">
+    <input placeholder="E-mail" class="form-control" formControlName="email" />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.['required'] &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail obrigatório"
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.['email'] &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail inválido!"
+    ></app-mensagem>
+  </div>
+
+  <div class="form-group">
+    <input
+      placeholder="Nome Completo"
+      class="form-control"
+      formControlName="fullName"
+    />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('fullName')?.errors &&
+        novoUsuarioForm.get('fullName')?.touched
+      "
+      mensagem="Nome inválido!"
+    ></app-mensagem>
+  </div>
+
+  <div class="form-group">
+    <input
+      placeholder="Usuário"
+      class="form-control"
+      formControlName="userName"
+    />
+  </div>
+  <app-mensagem
+    *ngIf="
+      novoUsuarioForm.get('userName')?.errors?.['minusculo'] &&
+      novoUsuarioForm.get('userName')?.touched
+    "
+    mensagem="Usuário deve ser em letras minúsculas!"
+  ></app-mensagem>
+
+  <app-mensagem
+  *ngIf="novoUsuarioForm.get('userName')?.errors?.['usuarioExistente']"
+  mensagem="Usuário já existe!">
+
+  </app-mensagem>
+
+  <div class="form-group">
+    <input
+      placeholder="Senha"
+      type="password"
+      class="form-control"
+      formControlName="password"
+    />
+
+    <app-mensagem
+    *ngIf="novoUsuarioForm.errors?.['senhaIgualUsuario']"
+    mensagem="Senha deve ser diferente do usuário">
+    </app-mensagem>
+
+  </div>
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary btn-block">Cadastro</button>
+  </div>
+</form>
+<p>Jé é um usuário? <a [routerLink]="['']"> Entre agora!</a></p>
